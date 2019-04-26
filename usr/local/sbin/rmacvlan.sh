@@ -7,11 +7,13 @@
 # Based on work by Evert Mouw, 2013 <https://www.furorteutonicus.eu/2013/08/04/enabling-host-guest-networking-with-kvm-macvlan-and-macvtap/>
 #
 
-# Configuration
+# [Configuration]
 HWLINK=enp10s0
 MACVLAN=rmacvlan
-TESTHOST=kernel.org
-# #
+TESTHOST=kernel.org #TODO: use rping if that'd be an improvement
+#IP=192.168.0.3 #testing with dinamic (lines 23-27) #TODO: cleanup
+# [/Configuration]
+
 
 # wait for network availability
 while ! ping -q -c 1 $TESTHOST > /dev/null
@@ -21,7 +23,12 @@ do
 done
 
 # get network config
-IP=$(ip address show dev $HWLINK | grep "inet " | awk '{print $2}')
+if [ -z "$IP" ]
+then
+  HWIP=$(ip address show dev $HWLINK | grep "inet " | awk '{print $2}')
+  IP=$(echo "$HWIP" | awk -F '[./]' 'BEGIN {OFS = "."} {print $1, $2, $3, ++$4 "/" $5}') #[temp/note]: $5 = $NF; $4 = $(NF-1); ++$4 = ++$(NF-1).
+# also: #$IP=$(awk -F '[./]' 'BEGIN {OFS = "."} {print $1, $2, $3, ++$4 "/" $5}' <<< $HWIP)
+fi
 NETWORK=$(ip -o route | grep $HWLINK | grep -v default | awk '{print $1}')
 GATEWAY=$(ip -o route | grep default | awk '{print $3}')
 
