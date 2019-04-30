@@ -6,13 +6,13 @@
 #
 # Based on work by Evert Mouw, 2013 <https://www.furorteutonicus.eu/2013/08/04/enabling-host-guest-networking-with-kvm-macvlan-and-macvtap/>
 #
-# (Last updated on 2018-02-28)
+# (Last updated on 2019-04-15)
 #
 
 # [Configuration]
 HWLINK=enp10s0
 MACVLAN=rmacvlan
-TESTHOST=kernel.org #TODO: use rping if that'd be an improvement
+#TESTHOST=1.1.1.1 #TODO: use rping if that'd be an improvement
 # uncomment and set target ip address for the macvlan - format: 192.168.0.3/24, although 192.168.0.3 also works
 #IP=
 # [/Configuration]
