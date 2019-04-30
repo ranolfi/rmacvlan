@@ -6,6 +6,8 @@
 #
 # Based on work by Evert Mouw, 2013 <https://www.furorteutonicus.eu/2013/08/04/enabling-host-guest-networking-with-kvm-macvlan-and-macvtap/>
 #
+# (Last updated on 2018-02-28)
+#
 
 # [Configuration]
 HWLINK=enp10s0
