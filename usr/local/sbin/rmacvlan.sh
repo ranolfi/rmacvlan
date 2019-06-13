@@ -28,12 +28,12 @@ done
 # get network config
 if [ -z "$IP" ]
 then
-  HWIP=$(ip address show dev $HWLINK | grep "inet " | awk '{print $2}')
+  HWIP=$(ip address show dev $HWLINK | awk '/inet / {print $2}')
   IP=$(echo "$HWIP" | awk -F '[./]' 'BEGIN {OFS = "."} {print $1, $2, $3, ++$4 "/" $5}') #[temp/note]: $5 = $NF; $4 = $(NF-1); ++$4 = ++$(NF-1).
 # also: #$IP=$(awk -F '[./]' 'BEGIN {OFS = "."} {print $1, $2, $3, ++$4 "/" $5}' <<< $HWIP)
 fi
-NETWORK=$(ip -o route | grep $HWLINK | grep -v default | awk '{print $1}')
-GATEWAY=$(ip -o route | grep default | awk '{print $3}')
+NETWORK=$(ip -o route | awk '/$HWLINK/ && ! /default/ {print $1}')
+GATEWAY=$(ip -o route | awk '/default/ {print $3}')
 
 # set up $MACVLAN interface
 ip link add link $HWLINK $MACVLAN type macvlan mode bridge
