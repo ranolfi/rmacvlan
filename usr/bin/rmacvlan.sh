@@ -32,7 +32,7 @@ then
   IP=$(echo "$HWIP" | awk -F '[./]' 'BEGIN {OFS = "."} {print $1, $2, $3, ++$4 "/" $5}') #[temp/note]: $5 = $NF; $4 = $(NF-1); ++$4 = ++$(NF-1).
 # also: #$IP=$(awk -F '[./]' 'BEGIN {OFS = "."} {print $1, $2, $3, ++$4 "/" $5}' <<< $HWIP)
 fi
-NETWORK=$(ip -o route | awk '/$HWLINK/ && ! /default/ {print $1}')
+NETWORK=$(ip -o route | awk -v hwlink="$HWLINK" '$0 ~ hwlink && ! /default/ {print $1}')
 GATEWAY=$(ip -o route | awk '/default/ {print $3}')
 
 # set up $MACVLAN interface
