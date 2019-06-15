@@ -6,7 +6,7 @@
 #
 # Based on work by Evert Mouw, 2013 <https://www.furorteutonicus.eu/2013/08/04/enabling-host-guest-networking-with-kvm-macvlan-and-macvtap/>
 #
-# (Last updated on 2019-05-27)
+# (Last updated on 2019-06-14)
 #
 
 # [Configuration]
