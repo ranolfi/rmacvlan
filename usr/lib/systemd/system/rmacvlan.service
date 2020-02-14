@@ -6,7 +6,7 @@ After=network-online.target
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/local/sbin/rmacvlan.sh
+ExecStart=/usr/bin/rmacvlan.sh
 
 [Install]
 WantedBy=multi-user.target
